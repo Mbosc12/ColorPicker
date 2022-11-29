@@ -3,21 +3,21 @@ package com.example.colorpicker.controller;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import com.example.colorpicker.MainActivity;
+
 public class CompleteRgb implements TextWatcher {
 
     private final String text;
 
-    private int start, count, after;
+    private CharSequence before;
+    private MainActivity app;
 
-    public CompleteRgb(String text) {
-        this.text = text;
+    public CompleteRgb(MainActivity app, String text) {
+        this.text = text; this.app = app;
     }
-
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        this.start = start;
-        this.count = count;
-        this.after = after;
+        before = charSequence;
     }
 
     @Override
@@ -32,6 +32,7 @@ public class CompleteRgb implements TextWatcher {
         } else if(editable.length() > 3 || (editable.length() > 0 && Integer.parseInt(editable.toString()) > 255)) {
             editable.replace(0, editable.length(), "255");
         }
+        app.changeTextHexa();
     }
 
     public boolean intVerification(Editable editable) {
