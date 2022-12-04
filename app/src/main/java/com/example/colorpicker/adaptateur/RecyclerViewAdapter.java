@@ -1,13 +1,11 @@
 package com.example.colorpicker.adaptateur;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.text.Layout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +16,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private int[] mData;
     private LayoutInflater mInflater;
-    private ItemClickListener itemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position);
+        void onItemLongClick(View v, int position);
+    }
+
+    private OnItemClickListener itemClickListener;
 
     // data is passed into the constructor
     public RecyclerViewAdapter(Context context, int[] data) {
@@ -38,6 +42,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.itemView.setBackgroundColor(mData[position]);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("petit click");
+                System.out.println(v);
+                System.out.println(holder.getAdapterPosition());
+                if(itemClickListener != null) itemClickListener.onItemClick(v, holder.getAdapterPosition());
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                itemClickListener.onItemLongClick(v, holder.getAdapterPosition());
+                return false;
+            }
+        });
+    }
+
+    public void setClickListener(OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     // total number of cells
@@ -48,19 +74,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         View view;
 
         ViewHolder(View itemView) {
             super(itemView);
             view = itemView.findViewById(R.id.buttonColor);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            System.out.println(view);
-            if (itemClickListener != null) itemClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
@@ -71,15 +90,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public void setData(int[] listColor) {
         this.mData = listColor;
-    }
-
-    // allows clicks events to be caught
-    public void setClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
-
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 }
