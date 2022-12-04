@@ -36,7 +36,7 @@ public class CompleteHexacode implements TextWatcher {
         }
 
         if(editable.length() == 7) {
-            app.changeTextRGB(editable.toString());
+            app.changeTextRGB(editable.toString(), true);
         }
     }
 }

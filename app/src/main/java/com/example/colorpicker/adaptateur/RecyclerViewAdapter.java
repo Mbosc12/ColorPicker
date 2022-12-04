@@ -1,13 +1,11 @@
 package com.example.colorpicker.adaptateur;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.text.Layout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +57,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View view) {
-            System.out.println(view);
             if (itemClickListener != null) itemClickListener.onItemClick(view, getAdapterPosition());
         }
     }
