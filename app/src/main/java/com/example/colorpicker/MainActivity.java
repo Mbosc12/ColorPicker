@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,17 +20,20 @@ import com.example.colorpicker.model.Color;
 import com.example.colorpicker.model.Rgb;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
-import com.skydoves.colorpickerview.listeners.ColorListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
+public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnItemClickListener {
 
     private int[] listColor = new int[10];
 
     private EditText hexaCode, codeR, codeG, codeB;
-    private Button colorButton;
+    private Button colorButton, generationColor;
 
     private TextWatcher twHexa, twR, twG, twB;
     private ColorPickerView colorPickerView;
@@ -44,6 +45,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private int currentColor = -1;
 
     RecyclerViewAdapter adapter;
+    RecyclerView recyclerView;
+
+    String[][] tabColor = {{"F2C57C", "DDAE7E", "7FB685", "426A5A", "EF6F6C"},
+    {"0A369D", "4472CA", "5E7CE2", "92B4F4", "CFDEE7"},
+    {"ECBA82", "81C14B", "2E933C", "297045", "204E4A"},
+    {"5D2A42", "FB6376", "FCB1A6", "FFDCCC", "FFF9EC"},
+    {"25CED1", "FFFFFF", "FCEADE", "FF8A5B", "EA526F"}};
+;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         colorPickerView = findViewById(R.id.colorPickerView);
         colorButton = findViewById(R.id.addColorButton);
 
+        generationColor = findViewById(R.id.generationColor);
 
         colorPickerView.setColorListener((ColorEnvelopeListener) (envelope, fromUser) -> {
             String hexa = colorCtrl.RgbToHex(new Rgb(envelope.getArgb()[1],envelope.getArgb()[2], envelope.getArgb()[3]));
@@ -84,12 +94,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         });
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.rvColor);
+        recyclerView = findViewById(R.id.rvColor);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 5));
         adapter = new RecyclerViewAdapter(this, listColor);
-        adapter.setClickListener((RecyclerViewAdapter.ItemClickListener) this);
+        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-
 
         colorButton.setOnClickListener(view -> {
             Color c = new Color(hexaCode.getText().toString(), new Rgb(Integer.parseInt(codeR.getText().toString()), Integer.parseInt(codeG.getText().toString()), Integer.parseInt(codeB.getText().toString())));
@@ -97,11 +106,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 for(int i =0; i < listColor.length; i++) {
                     if(listColor[i] == 0) {
                         listColor[i] = android.graphics.Color.parseColor(c.getHexaCode());
-                        recyclerView.setAdapter(adapter);
+                        refresh();
                         return;
                     }
                 }
             }
+        });
+
+        generationColor.setOnClickListener(view -> {
+            getColor();
         });
 
     }
@@ -158,12 +171,88 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemClick(View v, int position) {
         if(listColor[position] != 0) {
             String hexa = "#"+ Integer.toHexString(listColor[position]).substring(2);
             hexaCode.setText(hexa);
             currentColor = listColor[position];
             changePickColor();
         }
+    }
+
+    public void getColor()  {
+        Random r = new Random();
+        int random = r.nextInt(tabColor.length);
+
+        for(int i = 0; i < 5; i++) {
+            Rgb rgb = colorCtrl.hexToRgb("#" + tabColor[random][i]);
+            listColor[i] = getIntFromColor(rgb.getRed(), rgb.getGreen(), rgb.getBlue());
+        }
+        refresh();
+    }
+    
+    public void saveData(){
+        File dir = new File(this.getFilesDir(), "save");
+        if(!dir.exists()){
+            dir.mkdir();
+        }
+
+        try {
+            File gpxfile = new File(dir, "data");
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append(currentHexa);
+            writer.append(";");
+            for(int i : listColor) {
+                String hexColor = String.format("#%06X", (0xFFFFFF & i));
+                writer.append( hexColor + ";");
+            }
+            writer.flush();
+            writer.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void readData() {
+        try {
+            System.out.println("jy passe là");
+            File dir = new File(this.getFilesDir(), "save");
+            File gpxfile = new File(dir, "data");
+            FileInputStream fin = new FileInputStream(gpxfile);
+            int c;
+            String temp="";
+
+            while( (c = fin.read()) != -1){ temp = temp + Character.toString((char)c); }
+            System.out.println(temp);
+            initData(temp);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initData(String s) {
+        String[] colors = s.split(";");
+        currentHexa = colors[0];
+
+        for(int i = 1; i < colors.length; i++) {
+            Rgb rgb = colorCtrl.hexToRgb(colors[i]);
+            listColor[i-1] = getIntFromColor(rgb.getRed(), rgb.getGreen(), rgb.getBlue());
+        }
+
+        changeTextHexa();
+        changeTextRGB(currentHexa, false);
+        changePickColor();
+    }
+
+    public void refresh() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemLongClick(View v, int position) {
+        listColor[position] = 0;
+        refresh();
     }
 }

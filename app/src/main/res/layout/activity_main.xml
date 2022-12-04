@@ -75,11 +75,23 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/addColorButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ajouter" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addColorButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ajouter" />
+
+            <Button
+                android:id="@+id/generationColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Générer" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvColor"
