@@ -113,11 +113,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         colorButton.setOnClickListener(view -> {
             Color c = new Color(hexaCode.getText().toString(), new Rgb(Integer.parseInt(codeR.getText().toString()), Integer.parseInt(codeG.getText().toString()), Integer.parseInt(codeB.getText().toString())));
             if(checkColor(c)) {
-                for(int i =4; i > 0; i--) {
+                for(int i = 0; i < 5; i++){
+                    if(listColor[i] == -1){
+                        listColor[i] = android.graphics.Color.parseColor(c.getHexaCode());
+                        refresh();
+                        saveData();
+                        return;
+                    }
+                }
+                for(int i =4; i >0 ; i--) {
                     listColor[i] = listColor[i-1];
+
                 }
                 listColor[0] = android.graphics.Color.parseColor(c.getHexaCode());
-                Log.d ("TEST1", String.valueOf(listColor[1])) ;
                 refresh();
                 saveData();
                 return;
@@ -144,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             currentColor = getIntFromColor(Integer.valueOf(currentRgb.getRed()), Integer.valueOf(currentRgb.getGreen()), Integer.valueOf(currentRgb.getBlue()));
             changePickColor();
         }
+
         saveData();
     }
 
