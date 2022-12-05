@@ -168,12 +168,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="3"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:orientation="vertical"
+        android:layout_weight="2"
+        android:layout_margin="20dp">
 
 
 
@@ -182,24 +179,42 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvColor"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:elevation="5dp"/>
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/addColorButton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="+"
-            android:textSize="50dp"
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:layout_weight="3"
             android:background="@drawable/more"
             />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/generationColor"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="Générer"
-            android:background="@drawable/more"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addColorButton"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="AJOUTER UNE COULEUR"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/more"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/generationColor"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="GÉNÉRER"
+                android:padding="10dp"
+                android:gravity="center"
+                android:background="@drawable/more"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="25dp"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 
