@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
         currentHexa = colorCtrl.RgbToHex(new Rgb(r, g, b));
         hexaCode.setText(currentHexa);
-
+        hexaCode.setBackgroundColor(currentColor);
         currentColor = getIntFromColor(Integer.valueOf(currentRgb.getRed()), Integer.valueOf(currentRgb.getGreen()), Integer.valueOf(currentRgb.getBlue()));
         changePickColor();
     }

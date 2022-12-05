@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
         <com.skydoves.colorpickerview.ColorPickerView
             android:id="@+id/colorPickerView"
@@ -59,71 +59,70 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
 
             <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Red :"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
                 android:layout_gravity="center"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
+
                 android:layout_marginRight="5dp"
+                android:background="#FF0000"
                 ></TextView>
             <EditText
                 android:id="@+id/inputR"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="185"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="#d9d9d9"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 ></EditText>
             <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Green :"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:background="#00FF00"
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="35dp"
                 ></TextView>
             <EditText
                 android:id="@+id/inputG"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="185"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="#d9d9d9"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 ></EditText>
             <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blue :"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
                 android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:background="#0000FF"
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="35dp"
                 ></TextView>
 
             <EditText
                 android:id="@+id/inputB"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="185"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="#d9d9d9"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 ></EditText>
@@ -134,30 +133,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="15dp"
+
             android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
             <EditText
                 android:id="@+id/inputHex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:textAlignment="center"
                 android:layout_gravity="center"
                 android:text="#ffffff"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:layout_margin="10dp"
+                android:background="@color/white"
                 android:textStyle="bold" />
 
-
-            <com.skydoves.colorpickerview.AlphaTileView
-                android:id="@+id/alphaTileView"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                app:tileSize="20" />
 
 
 
@@ -169,7 +162,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="2"
+        android:layout_weight="5"
         android:layout_margin="20dp">
 
 
@@ -189,18 +182,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="3">
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addColorButton"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:text="AJOUTER UNE COULEUR"
+                android:text="AJOUTER"
                 android:padding="10dp"
                 android:gravity="center"
-                android:layout_marginBottom="20dp"
+
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="25dp"
                 android:background="@drawable/more"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/generationColor"
@@ -210,9 +206,12 @@
                 android:padding="10dp"
                 android:gravity="center"
                 android:background="@drawable/more"
-                android:layout_marginBottom="20dp"
+
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="25dp"/>
+                android:layout_marginLeft="25dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
         </LinearLayout>
 
 
