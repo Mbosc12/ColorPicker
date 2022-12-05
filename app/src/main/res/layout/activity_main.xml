@@ -31,7 +31,13 @@
                 android:layout_marginStart="115dp"
                 android:layout_marginLeft="115dp" />
 
+
+
+
+
         </androidx.appcompat.widget.Toolbar>
+
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -41,18 +47,55 @@
         android:orientation="vertical"
         android:layout_weight="2">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <EditText
+                android:id="@+id/inputHex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text="#ffffff"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+
+
+        </LinearLayout>
+
         <com.skydoves.colorpickerview.ColorPickerView
             android:id="@+id/colorPickerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="6"
+
+            android:layout_weight="30"
             app:initialColor="@color/white"
             app:preferenceName="Test2"
             app:selector="@drawable/wheel" />
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:padding="3dp">
+
+            <View
+                android:id="@+id/circleColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/white"
+                />
+        </LinearLayout>
 
 
 
@@ -60,8 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_margin="20dp"
             >
 
             <TextView
@@ -130,31 +172,7 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
 
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:layout_gravity="center">
-
-            <EditText
-                android:id="@+id/inputHex"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:text="#ffffff"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_margin="10dp"
-                android:background="@color/white"
-                android:textStyle="bold" />
-
-
-
-
-        </LinearLayout>
     </LinearLayout>
 
 

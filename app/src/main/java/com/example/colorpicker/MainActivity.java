@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextWatcher;
 import android.view.View;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private EditText hexaCode, codeR, codeG, codeB;
     private Button colorButton, generationColor;
+    private View colorView;
 
     private TextWatcher twHexa, twR, twG, twB;
     private ColorPickerView colorPickerView;
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         colorButton = findViewById(R.id.addColorButton);
 
         generationColor = findViewById(R.id.generationColor);
+
+        colorView = findViewById(R.id.circleColor);
 
         for(int i = 0; i < listColor.length; i++) {
             listColor[i] = -1;
@@ -152,8 +156,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         System.out.println("je passe après le return pour changer hexa");
         currentHexa = colorCtrl.RgbToHex(new Rgb(r, g, b));
         hexaCode.setText(currentHexa);
-        hexaCode.setBackgroundColor(currentColor);
+
         currentColor = getIntFromColor(Integer.valueOf(currentRgb.getRed()), Integer.valueOf(currentRgb.getGreen()), Integer.valueOf(currentRgb.getBlue()));
+        colorView.setBackgroundTintList(ColorStateList.valueOf(currentColor));
         changePickColor();
     }
 
