@@ -5,7 +5,8 @@
       <map>
         <entry key="app/src/main/res/drawable/circle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/more.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1631607055664063" />
+        <entry key="app/src/main/res/drawable/scrollbar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2348993288590604" />
         <entry key="app/src/main/res/layout/recyclerview_item.xml" value="0.1703125" />
         <entry key="app/src/main/res/layout/test.xml" value="0.3054962158203125" />
       </map>
