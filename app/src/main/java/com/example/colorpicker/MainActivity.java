@@ -83,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         generationColor = findViewById(R.id.generationColor);
 
+        for(int i = 0; i < listColor.length; i++) {
+            listColor[i] = -1;
+        }
+        readData();
+
         colorPickerView.setColorListener((ColorEnvelopeListener) (envelope, fromUser) -> {
             String hexa = colorCtrl.RgbToHex(new Rgb(envelope.getArgb()[1],envelope.getArgb()[2], envelope.getArgb()[3]));
             if(!hexa.equals(currentHexa)) {
@@ -104,9 +109,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             Color c = new Color(hexaCode.getText().toString(), new Rgb(Integer.parseInt(codeR.getText().toString()), Integer.parseInt(codeG.getText().toString()), Integer.parseInt(codeB.getText().toString())));
             if(checkColor(c)) {
                 for(int i =0; i < listColor.length; i++) {
-                    if(listColor[i] == 0) {
+                    if(listColor[i] == -1) {
                         listColor[i] = android.graphics.Color.parseColor(c.getHexaCode());
                         refresh();
+                        saveData();
                         return;
                     }
                 }
@@ -133,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             currentColor = getIntFromColor(Integer.valueOf(currentRgb.getRed()), Integer.valueOf(currentRgb.getGreen()), Integer.valueOf(currentRgb.getBlue()));
             changePickColor();
         }
+        saveData();
     }
 
     public void changeTextHexa() {
@@ -142,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         if(colorCtrl.RgbToHex(new Rgb(r, g, b)).equals(currentHexa)) {
             return;
         }
+        System.out.println("je passe après le return pour changer hexa");
         currentHexa = colorCtrl.RgbToHex(new Rgb(r, g, b));
         hexaCode.setText(currentHexa);
 
@@ -189,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             listColor[i] = getIntFromColor(rgb.getRed(), rgb.getGreen(), rgb.getBlue());
         }
         refresh();
+        saveData();
+
     }
     
     public void saveData(){
@@ -215,7 +225,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     public void readData() {
         try {
-            System.out.println("jy passe là");
             File dir = new File(this.getFilesDir(), "save");
             File gpxfile = new File(dir, "data");
             FileInputStream fin = new FileInputStream(gpxfile);
@@ -223,7 +232,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             String temp="";
 
             while( (c = fin.read()) != -1){ temp = temp + Character.toString((char)c); }
-            System.out.println(temp);
             initData(temp);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -234,16 +242,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     public void initData(String s) {
         String[] colors = s.split(";");
-        currentHexa = colors[0];
 
         for(int i = 1; i < colors.length; i++) {
             Rgb rgb = colorCtrl.hexToRgb(colors[i]);
             listColor[i-1] = getIntFromColor(rgb.getRed(), rgb.getGreen(), rgb.getBlue());
         }
-
-        changeTextHexa();
-        changeTextRGB(currentHexa, false);
-        changePickColor();
     }
 
     public void refresh() {
@@ -252,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     @Override
     public void onItemLongClick(View v, int position) {
-        listColor[position] = 0;
+        listColor[position] = -1;
         refresh();
     }
 }
