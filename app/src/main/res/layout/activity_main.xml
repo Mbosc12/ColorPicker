@@ -47,6 +47,35 @@
         android:orientation="vertical"
         android:layout_weight="2">
 
+
+
+        <com.skydoves.colorpickerview.ColorPickerView
+            android:id="@+id/colorPickerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_weight="30"
+            app:initialColor="@color/white"
+            app:preferenceName="Test2"
+            app:selector="@drawable/wheel" />
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:padding="3dp">
+
+            <View
+                android:id="@+id/circleColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/white"
+                />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,31 +100,6 @@
 
         </LinearLayout>
 
-        <com.skydoves.colorpickerview.ColorPickerView
-            android:id="@+id/colorPickerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-
-            android:layout_weight="30"
-            app:initialColor="@color/white"
-            app:preferenceName="Test2"
-            app:selector="@drawable/wheel" />
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:padding="3dp">
-
-            <View
-                android:id="@+id/circleColor"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/circle"
-                android:backgroundTint="@color/white"
-                />
-        </LinearLayout>
 
 
 

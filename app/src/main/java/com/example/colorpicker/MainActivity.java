@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -112,14 +113,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         colorButton.setOnClickListener(view -> {
             Color c = new Color(hexaCode.getText().toString(), new Rgb(Integer.parseInt(codeR.getText().toString()), Integer.parseInt(codeG.getText().toString()), Integer.parseInt(codeB.getText().toString())));
             if(checkColor(c)) {
-                for(int i =0; i < listColor.length; i++) {
-                    if(listColor[i] == -1) {
-                        listColor[i] = android.graphics.Color.parseColor(c.getHexaCode());
-                        refresh();
-                        saveData();
-                        return;
-                    }
+                for(int i =4; i > 0; i--) {
+                    listColor[i] = listColor[i-1];
                 }
+                listColor[0] = android.graphics.Color.parseColor(c.getHexaCode());
+                Log.d ("TEST1", String.valueOf(listColor[1])) ;
+                refresh();
+                saveData();
+                return;
             }
         });
 
