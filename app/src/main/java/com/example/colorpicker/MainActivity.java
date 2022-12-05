@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private ColorController colorCtrl;
 
+    private boolean can = true;
+
     private Rgb currentRgb = new Rgb(255, 255, 255);
     private String currentHexa = "#ffffff";
     private int currentColor = -1;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         readData();
 
         colorPickerView.setColorListener((ColorEnvelopeListener) (envelope, fromUser) -> {
+            can = false;
             String hexa = colorCtrl.RgbToHex(new Rgb(envelope.getArgb()[1],envelope.getArgb()[2], envelope.getArgb()[3]));
             if(!hexa.equals(currentHexa)) {
                 changeTextHexa();
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             if(envelope.getArgb()[1] != this.currentRgb.getRed() || envelope.getArgb()[2] != this.currentRgb.getGreen() || envelope.getArgb()[3] != this.currentRgb.getBlue()) {
                 changeTextRGB(hexa, false);
             }
+            can = true;
         });
 
         // set up the RecyclerView
@@ -139,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     public void changeTextRGB(String hexa, boolean needChangePickColor) {
+        can = false;
         if(colorCtrl.hexToRgb(hexa).equals(currentRgb)) {
             return;
         }
@@ -154,22 +159,39 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
 
         saveData();
+        can = true;
     }
 
     public void changeTextHexa() {
-        int r = this.currentRgb.getRed();
-        int g = this.currentRgb.getGreen();
-        int b = this.currentRgb.getBlue();
-        if(colorCtrl.RgbToHex(new Rgb(r, g, b)).equals(currentHexa)) {
-            return;
-        }
-        System.out.println("je passe après le return pour changer hexa");
-        currentHexa = colorCtrl.RgbToHex(new Rgb(r, g, b));
-        hexaCode.setText(currentHexa);
 
-        currentColor = getIntFromColor(Integer.valueOf(currentRgb.getRed()), Integer.valueOf(currentRgb.getGreen()), Integer.valueOf(currentRgb.getBlue()));
-        colorView.setBackgroundTintList(ColorStateList.valueOf(currentColor));
-        changePickColor();
+            can = false;
+            int r = this.currentRgb.getRed();
+            int g = this.currentRgb.getGreen();
+            int b = this.currentRgb.getBlue();
+            if(colorCtrl.RgbToHex(new Rgb(r, g, b)).equals(currentHexa)) {
+                return;
+            }
+            System.out.println("je passe après le return pour changer hexa");
+            currentHexa = colorCtrl.RgbToHex(new Rgb(r, g, b));
+            hexaCode.setText(currentHexa);
+
+            currentColor = getIntFromColor(Integer.valueOf(currentRgb.getRed()), Integer.valueOf(currentRgb.getGreen()), Integer.valueOf(currentRgb.getBlue()));
+            colorView.setBackgroundTintList(ColorStateList.valueOf(currentColor));
+            changePickColor();
+
+            can =true;
+    }
+
+    public void changementOnRGB(){
+        if(can){
+            this.currentRgb.setRed(Integer.valueOf(codeR.getText().toString()));
+            this.currentRgb.setGreen(Integer.valueOf(codeG.getText().toString()));
+            this.currentRgb.setBlue(Integer.valueOf(codeB.getText().toString()));
+
+            currentColor = getIntFromColor(Integer.valueOf(currentRgb.getRed()), Integer.valueOf(currentRgb.getGreen()), Integer.valueOf(currentRgb.getBlue()));
+            changePickColor();
+        }
+
     }
 
     public void changePickColor() {

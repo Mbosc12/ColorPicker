@@ -84,7 +84,7 @@
             android:orientation="vertical"
             android:layout_gravity="center">
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/inputHex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,8 +125,9 @@
                 android:id="@+id/inputR"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="185"
                 android:layout_gravity="center"
+                android:text="185"
+                android:textAlignment="center"
                 android:textColor="#d9d9d9"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -147,6 +148,8 @@
                 android:layout_height="wrap_content"
                 android:text="185"
                 android:layout_gravity="center"
+
+                android:textAlignment="center"
                 android:textColor="#d9d9d9"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -162,16 +165,18 @@
                 android:layout_marginLeft="35dp"
                 ></TextView>
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/inputB"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="185"
                 android:layout_gravity="center"
+                android:text="185"
+                android:textAlignment="center"
                 android:textColor="#d9d9d9"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                ></EditText>
+
+                ></androidx.appcompat.widget.AppCompatEditText>
 
         </LinearLayout>
 

@@ -27,12 +27,14 @@ public class CompleteRgb implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        if(!intVerification(editable)) {
+        if(!intVerification(editable) || editable.length() == 0 ) {
             editable.replace(0, editable.length(), "0");
         } else if(editable.length() > 3 || (editable.length() > 0 && Integer.parseInt(editable.toString()) > 255)) {
             editable.replace(0, editable.length(), "255");
         }
-        app.changeTextHexa();
+        app.changementOnRGB();
+
+
     }
 
     public boolean intVerification(Editable editable) {
